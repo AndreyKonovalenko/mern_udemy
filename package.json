@@ -1,0 +1,24 @@
+{
+  "name": "mern_udemy",
+  "version": "1.0.0",
+  "description": "Udemy courese porect - social network for developers",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js ",
+    "server": "nodemon server.js"
+  },
+  "author": "Brad Traversy",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.3.9",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
+  }
+}

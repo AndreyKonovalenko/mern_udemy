@@ -8,6 +8,8 @@ const posts = require('./routes/api/posts');
 
 
 const app = express();
+// using express as a router provider
+
 const server = http.createServer(app);
 
 //DB Config 

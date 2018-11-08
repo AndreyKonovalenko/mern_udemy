@@ -109,7 +109,7 @@ router.post('/login', (req, res) => {
 // @decx   Return cuurent user
 // @access Privet
 
-router.get('/current', passport.authenticate('jwt', { session: false}),
+router.get('/current', passport.authenticate('jwt', { session: false }),
     (req, res) => {
         res.json({
             id: req.user.id,

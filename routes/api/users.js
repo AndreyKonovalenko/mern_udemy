@@ -8,6 +8,7 @@ const passport = require("passport");
 
 // Load Input validaition
 const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // Load User model
 const User = require("../../models/User");
@@ -69,20 +70,28 @@ router.post("/register", (req, res) => {
 // @access Public
 
 router.post("/login", (req, res) => {
-  console.log(req.body);
+  
+  const { errors, isValid } =  validateLoginInput(req.body);
+
+  // Check Validation 
+  if(!isValid) {
+    return res.status(400).json(errors);
+  }
+  
   const email = req.body.email;
   const password = req.body.password;
 
-  //Fide user by email
+  //Find user by email
   // for this we gona user mongoose User module
 
   //User.findOne({email: email}) it is equal User.findOne({email})
   User.findOne({ email }).then(user => {
     // Check for user
     if (!user) {
-      return res.status(400).json({ email: "User not found" });
+      errors.email = 'User not found';
+      return res.status(400).json(errors);
     }
-
+    
     // Check Password
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
@@ -107,7 +116,8 @@ router.post("/login", (req, res) => {
           }
         );
       } else {
-        return res.status(400).json({ password: "Password incorrect" });
+        errors.password = 'Password incorrect';
+        return res.status(400).json(errors);
       }
     });
   });

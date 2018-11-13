@@ -43,12 +43,13 @@ router.get(
 // @decx   Get profile by handle
 // @access Public
 
-router.get('/handle:handle', (req, res) => {
+router.get('/handle/:handle', (req, res) => {
+  const errors = {};
   Profile.findOne({ handle: req.params.handle })
-    .popuate('user', ['name', 'avatar'])
+    .populate('user', ['name', 'avatar'])
     .then(profile => {
-      if (!propfile) {
-        errors.nofprofile = 'There is no profile fro this user';
+      if (!profile) {
+        errors.noprofile = 'There is no profile for this user';
         res.status(404).json(errors); // 404 means not found
       }
 

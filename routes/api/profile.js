@@ -39,6 +39,24 @@ router.get(
   }
 );
 
+// @router GET api/profile/handle/:handle
+// @decx   Get profile by handle
+// @access Public
+
+router.get('/handle:handle', (req, res) => {
+  Profile.findOne({ handle: req.params.handle })
+    .popuate('user', ['name', 'avatar'])
+    .then(profile => {
+      if (!propfile) {
+        errors.nofprofile = 'There is no profile fro this user';
+        res.status(404).json(errors); // 404 means not found
+      }
+
+      res.json(profile);
+    })
+    .catch(err => res.status(404).json(err));
+});
+
 // @router POST api/profile
 // @decx   Create or Edit user profile
 // @access Privet

@@ -1,0 +1,29 @@
+const Validator = require('validator');
+const isEmpty = require('./is-empty');
+
+module.exports = function validateExperienceInput(data) {
+  let errors = {};
+
+  data.title = !isEmpty(data.title) ? data.title : '';
+  data.company = !isEmpty(data.company) ? data.company : '';
+  data.from = !isEmpty(data.from) ? data.from : '';
+
+  if (Validator.isEmpty(data.title)) {
+    errors.title = 'Title field is required';
+  }
+
+  if (Validator.isEmpty(data.company)) {
+    errors.company = 'Company field is required';
+  }
+
+  if (Validator.isEmpty(data.from)) {
+    errors.from = 'From date field is required';
+  }
+
+  // if everything passes errors object will be empty and in the end
+  // functon will return isValid: true
+  return {
+    errors, // same as errors: errors
+    isValid: isEmpty(errors)
+  };
+};

@@ -256,4 +256,30 @@ router.delete(
   }
 );
 
+// @router DELETE api/profile/education/:edu_id
+// @decx   Delete education from profile
+// @access Privet
+
+router.delete(
+  '/education/:edu_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Get reomove index
+        console.log(profile.education);
+        const removeIndex = profile.education
+          .map(item => item.id)
+          .indexOf(req.params.edu_id);
+
+        // Splice out of array
+        profile.education.splice(removeIndex, 1);
+        console.log(profile);
+        // Save
+        profile.save().then(profile => res.json(profile));
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
 module.exports = router;

@@ -33,7 +33,7 @@ const PostSchema = new Schema({
       },
       text: {
         type: String,
-        require: ture
+        require: true
       },
       name: {
         type: String

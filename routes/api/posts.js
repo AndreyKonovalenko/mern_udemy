@@ -14,13 +14,13 @@ const validatePostInput = require('../../validation/post');
 
 
 // @router GET api/posts/test
-// @decx   Tests post route
+// @desc   Tests post route
 // @access Public
 
 router.get('/test', (req, res) => res.json({ msg: "Posts Works" }));
 
 // @router GET api/posts
-// @decx   Get posts
+// @desc   Get posts
 // @access Public
 
 router.get('/', (req, res) => {
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 });
 
 // @router GET api/posts/:id
-// @decx   Get post by id
+// @desc   Get post by id
 // @access Public
 
 router.get('/:id', (req, res) => {
@@ -41,7 +41,7 @@ router.get('/:id', (req, res) => {
 });
 
 // @router POST api/posts
-// @decx   Create post
+// @desc   Create post
 // @access Privete
 
 router.post('/', passport.authenticate('jwt', {session: false}), 
@@ -66,26 +66,47 @@ router.post('/', passport.authenticate('jwt', {session: false}),
 );
 
 // @router DELETE api/posts/:id
-// @decx   DELETE post by id
+// @desc   DELETE post by id
 // @access Privete
 
 router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
-    Profile.findOne({ user: req.user.id })
-      .then(profile => {
-        Post.findById(req.params.id)
-          .then(post => {
-            // Check for post owner
-            if(post.user.toString() !== req.user.id) {
-              // 401 is unauthorised http request status
-              return res.status(401).json({notauthorized: 'User not authorized'});
-            }
-            
-            // Delete
-            post.remove().then(() => res.json({success: true}))
-          })
-          .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
-      })
+  Profile.findOne({ user: req.user.id })
+    .then(profile => {
+      Post.findById(req.params.id)
+        .then(post => {
+          // Check for post owner
+          if(post.user.toString() !== req.user.id) {
+            // 401 is unauthorised http request status
+            return res.status(401).json({notauthorized: 'User not authorized'});
+          }
+          
+          // Delete
+          post.remove().then(() => res.json({success: true}))
+        })
+        .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+    })
 });
 
+// @router POST api/posts/like/:id
+// @desc   Like post
+// @access Privete
+
+router.post('/like/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Profile.findOne({ user: req.user.id }).then(profile => {
+    console.log(req.params.id)
+    Post.findById(req.params.id)
+      .then(post => {
+        if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0 ){
+          return res.status(400).json({alreadyliked: 'User already liked this post'});
+        }
+        
+        // Add user id to likes array
+        post.like.unshift({ user: req.user.id});
+        
+        post.save().then(post => res.json(post));
+      })
+      .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
+  })
+});
 
 module.exports = router;

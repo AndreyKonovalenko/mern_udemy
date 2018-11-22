@@ -15,9 +15,33 @@ const validatePostInput = require('../../validation/post');
 // @decx   Tests post route
 // @access Public
 
-router.get("/test", (req, res) => res.json({ msg: "Posts Works" }));
+router.get('/test', (req, res) => res.json({ msg: "Posts Works" }));
 
-// @router GET api/posts/posts
+// @router GET api/posts
+// @decx   Get posts
+// @access Public
+
+router.get('/', (req, res) => {
+  Post.find()
+    .sort({date: -1})
+    .then(posts => res.json(posts))
+    .catch(err => res.status(404));
+});
+
+
+// @router GET api/posts/:id
+// @decx   Get post by id
+// @access Public
+
+router.get('/:id', (req, res) => {
+  Post.findById(req.params.id)
+    .then(post => res.json(post))
+    .catch(err => res.status(404));
+});
+
+
+
+// @router POST api/posts
 // @decx   Create post
 // @access Privete
 

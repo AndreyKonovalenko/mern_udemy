@@ -42,7 +42,12 @@ app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 
-const port = process.env.PORT || 5000;
+
+
+let port = process.env.PORT || 5000;
+if (port === '8080') {
+  port = 8081;
+}
 const ip = process.env.IP || "0.0.0.0";
 
 server.listen(port, ip, () => {

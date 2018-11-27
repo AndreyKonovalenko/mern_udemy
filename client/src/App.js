@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route} from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -13,10 +13,10 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Navbar />
-          <Route exact path="/" component={Landing} />
-          <div className="container">
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
+          <Route exact path='/' component={Landing} />
+          <div className='container'>
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
           </div>
           <Footer />
         </div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Register extends Component {
+  
   state = {
     name: '',
     email: '',
@@ -20,9 +22,19 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log(newUser);
+    
+    const url = 'http://mern-bereon.c9users.io:8081/api/users/register';
+    axios.post(url, newUser)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error.response.data);
+      });
+    
   };
-
+  
+  
   render() {
     return (
       <div className='register'>

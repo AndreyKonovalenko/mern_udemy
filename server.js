@@ -37,12 +37,20 @@ app.use(passport.initialize());
 
 require("./config/passport")(passport);
 
+
+// Enable CORS for develompent
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 // Use Routes
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
-
-
 
 let port = process.env.PORT || 5000;
 if (port === '8080') {

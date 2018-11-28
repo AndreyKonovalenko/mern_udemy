@@ -14,13 +14,13 @@ const validateLoginInput = require('../../validation/login');
 const User = require('../../models/User');
 
 // @route GET api/users/test
-// @decx   Tests users route
+// @desc   Tests users route
 // @access Public
 
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 
-// @route GET api/users/register
-// @decx   Tests users route
+// @route Post api/users/register
+// @desc   REgister user
 // @access Public
 
 // "new" we use when create new User in mongoose
@@ -66,7 +66,7 @@ router.post('/register', (req, res) => {
 });
 
 // @route GET api/users/login
-// @decx Login user / Returning JWT Token
+// @desc Login user / Returning JWT Token
 // @access Public
 
 router.post('/login', (req, res) => {

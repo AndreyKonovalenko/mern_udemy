@@ -7,7 +7,6 @@ const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX
 const initialState = {}; // it is not necessary parame
 
 const middleware = [thunk];
-console.log(composeEnhancers);
 
 const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(...middleware)));
 

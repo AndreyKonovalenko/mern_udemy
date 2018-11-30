@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
 class Register extends Component {
   
@@ -23,14 +26,16 @@ class Register extends Component {
       password2: this.state.password2
     };
     
-    const url = 'http://mern-bereon.c9users.io:8081/api/users/register';
-    axios.post(url, newUser)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => {
-        this.setState({errors: error.response.data});
-      });
+    this.props.registerUser(newUser);
+    
+    // const url = 'http://mern-bereon.c9users.io:8081/api/users/register';
+    // axios.post(url, newUser)
+    //   .then(response => {
+    //     console.log(response.data);
+    //   })
+    //   .catch(error => {
+    //     this.setState({errors: error.response.data});
+    //   });
     
   };
   
@@ -41,9 +46,12 @@ class Register extends Component {
     const {errors} = this.state; //this is the same as const erorrs = this.staste.errors
     const formBasicClass = 'form-control form-control-lg';
     
+    const { user } = this.props.auth;
+    
     return (
   
       <div className='register'>
+       { user ? user.name : null}
         <div className='container'>
           <div className='row'>
             <div className='col-md-8 m-auto'>
@@ -110,4 +118,15 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapSateToProps = (state) => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapSateToProps, { registerUser })(Register);

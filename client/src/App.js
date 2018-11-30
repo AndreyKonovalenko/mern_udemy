@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';

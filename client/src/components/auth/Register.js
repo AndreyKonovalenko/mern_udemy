@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
 
@@ -11,6 +12,15 @@ class Register extends Component {
     password2: '',
     errors: {}
   };
+
+  // this lifecycle method here in order not to change input logic below
+  // but instead we can remove errors component state and user this.props.erros
+  // form our store
+  componentDidUpdate(prevProps) {
+    if (this.props.errors !== prevProps.errors) {
+      this.setState({ errors: this.props.errors });
+    }
+  }
 
   onChangeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -24,18 +34,14 @@ class Register extends Component {
       password2: this.state.password2
     };
 
-    this.props.registerUser(newUser);
+    this.props.registerUser(newUser, this.props.history);
   };
 
   render() {
     const { errors } = this.state; //this is the same as const erorrs = this.staste.errors
     const formBasicClass = 'form-control form-control-lg';
-
-    const { user } = this.props.auth;
-
     return (
       <div className='register'>
-        {user ? user.name : null}
         <div className='container'>
           <div className='row'>
             <div className='col-md-8 m-auto'>
@@ -128,17 +134,18 @@ class Register extends Component {
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapSateToProps = state => {
   return {
     auth: state.auth,
-    errors: state.arrors
+    errors: state.errors
   };
 };
 
 export default connect(
   mapSateToProps,
   { registerUser }
-)(Register);
+)(withRouter(Register));

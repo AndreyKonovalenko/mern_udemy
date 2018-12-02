@@ -1,12 +1,11 @@
-import axios from 'axios';
+import axios from '../axios-db';
 import { GET_ERRORS } from './types';
 
 // Register User
-export const registerUser = userDate => dispatch => {
-  const url = 'http://mern-bereon.c9users.io:8081/api/users/register';
+export const registerUser = (userDate, history) => dispatch => {
   axios
-    .post(url, userDate)
-    .then(response => console.log(response.data))
+    .post('api/users/register', userDate)
+    .then(response => history.push('/login'))
     .catch(error =>
       dispatch({
         type: GET_ERRORS,

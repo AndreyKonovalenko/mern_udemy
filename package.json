@@ -7,7 +7,9 @@
     "client-install": "npm install --prefix client",
     "start": "node server.js ",
     "server": "nodemon server.js",
-    "client": "npm start --prefix client",
+    "client-c9": "REACT_APP_URL=http://mern-bereon.c9users.io:8081 npm start --prefix client",
+    "client": "REACT_APP_URL=http://localhost:5000 npm start --prefix client",
+    "dev-c9": "concurrently \"npm run server\" \"npm run client-c9\"",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Brad Traversy",

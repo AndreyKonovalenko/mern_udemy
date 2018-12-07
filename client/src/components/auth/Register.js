@@ -9,18 +9,9 @@ class Register extends Component {
     name: '',
     email: '',
     password: '',
-    password2: '',
-    errors: {}
+    password2: ''
   };
 
-  // this lifecycle method here in order not to change input logic below
-  // but instead we can remove errors component state and user this.props.erros
-  // form our store
-  componentDidUpdate(prevProps) {
-    if (this.props.errors !== prevProps.errors) {
-      this.setState({ errors: this.props.errors });
-    }
-  }
 
   onChangeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -36,10 +27,15 @@ class Register extends Component {
 
     this.props.registerUser(newUser, this.props.history);
   };
+  
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
 
   render() {
-    const { errors } = this.state; //this is the same as const erorrs = this.staste.errors
-    const formBasicClass = 'form-control form-control-lg';
+     const formBasicClass = 'form-control form-control-lg';
     return (
       <div className='register'>
         <div className='container'>
@@ -54,24 +50,24 @@ class Register extends Component {
                   <input
                     type='text'
                     className={
-                      !errors.name
+                      !this.props.errors.name
                         ? formBasicClass
                         : `${formBasicClass} is-invalid`
-                    } // is-invalid is bootstrap class for validation errors
+                    } // is-invalid is bootstrap class for validation this.props.errors
                     placeholder='Name'
                     name='name'
                     value={this.state.name}
                     onChange={this.onChangeHandler}
                   />
-                  {errors.name && (
-                    <div className='invalid-feedback'>{errors.name}</div>
+                  {this.props.errors.name && (
+                    <div className='invalid-feedback'>{this.props.errors.name}</div>
                   )}
                 </div>
                 <div className='form-group'>
                   <input
                     type='email'
                     className={
-                      !errors.email
+                      !this.props.errors.email
                         ? formBasicClass
                         : `${formBasicClass} is-invalid`
                     }
@@ -80,8 +76,8 @@ class Register extends Component {
                     value={this.state.email}
                     onChange={this.onChangeHandler}
                   />
-                  {errors.email && (
-                    <div className='invalid-feedback'>{errors.email}</div>
+                  {this.props.errors.email && (
+                    <div className='invalid-feedback'>{this.props.errors.email}</div>
                   )}
                   <small className='form-text text-muted'>
                     This site uses Gravatar so if you want a profile image, use
@@ -92,7 +88,7 @@ class Register extends Component {
                   <input
                     type='password'
                     className={
-                      !errors.password
+                      !this.props.errors.password
                         ? formBasicClass
                         : `${formBasicClass} is-invalid`
                     }
@@ -101,15 +97,15 @@ class Register extends Component {
                     value={this.state.password}
                     onChange={this.onChangeHandler}
                   />
-                  {errors.password && (
-                    <div className='invalid-feedback'>{errors.password}</div>
+                  {this.props.errors.password && (
+                    <div className='invalid-feedback'>{this.props.errors.password}</div>
                   )}
                 </div>
                 <div className='form-group'>
                   <input
                     type='password'
                     className={
-                      !errors.password2
+                      !this.props.errors.password2
                         ? formBasicClass
                         : `${formBasicClass} is-invalid`
                     }
@@ -118,8 +114,8 @@ class Register extends Component {
                     value={this.state.password2}
                     onChange={this.onChangeHandler}
                   />
-                  {errors.password2 && (
-                    <div className='invalid-feedback'>{errors.password2}</div>
+                  {this.props.errors.password2 && (
+                    <div className='invalid-feedback'>{this.props.errors.password2}</div>
                   )}
                 </div>
                 <input type='submit' className='btn btn-info btn-block mt-4' />

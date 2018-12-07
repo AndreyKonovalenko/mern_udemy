@@ -6,24 +6,12 @@ import { loginUser } from '../../actions/authActions';
 class Login extends Component {
   state = {
     email: '',
-    password: '',
-    errors: {}
+    password: ''
   };
 
   // this lifecycle method here in order not to change input logic below
   // but instead we can remove errors component state and user this.props.erros
   // form our store
-
-  componentDidUpdate(prevProps) {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-
-    if (this.props.errors !== prevProps.errors) {
-      this.setState({ errors: this.props.errors });
-    }
-  }
-
   onChangeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -33,13 +21,17 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.loginUser(userData);
+    this.props.loginUser(userData, this.props.history);
   };
+  
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
 
   render() {
-    const { errors } = this.state;
     const formBasicClass = 'form-control form-control-lg';
-
     return (
       <div className='login'>
         <div className='container'>
@@ -58,13 +50,13 @@ class Login extends Component {
                     value={this.state.email}
                     onChange={this.onChangeHandler}
                     className={
-                      !errors.email
+                      !this.props.errors.email
                         ? formBasicClass
                         : `${formBasicClass} is-invalid`
-                    } // is-invalid is bootstrap class for validation errors
+                    } // is-invalid is bootstrap class for validation this.props.errors
                   />
-                  {errors.email && (
-                    <div className='invalid-feedback'>{errors.email}</div>
+                  {this.props.errors.email && (
+                    <div className='invalid-feedback'>{this.props.errors.email}</div>
                   )}
                 </div>
                 <div className='form-group'>
@@ -75,13 +67,13 @@ class Login extends Component {
                     value={this.state.password}
                     onChange={this.onChangeHandler}
                     className={
-                      !errors.password
+                      !this.props.errors.password
                         ? formBasicClass
                         : `${formBasicClass} is-invalid`
-                    } // is-invalid is bootstrap class for validation errors
+                    } // is-invalid is bootstrap class for validation this.props.errors
                   />
-                  {errors.password && (
-                    <div className='invalid-feedback'>{errors.password}</div>
+                  {this.props.errors.password && (
+                    <div className='invalid-feedback'>{this.props.errors.password}</div>
                   )}
                 </div>
                 <input type='submit' className='btn btn-info btn-block mt-4' />

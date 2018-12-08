@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { PropsTypse } from 'prop-types'; 
-import {connect} from 'react-redux';
+import PropsTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Landing extends Component {
-  
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
   }
-  
+
   render() {
     return (
       <div className='landing'>
@@ -41,7 +40,7 @@ class Landing extends Component {
 }
 
 Landing.propTypes = {
-  auth:PropsTypse.object.isRequired
+  auth: PropsTypes.object.isRequired
 };
 
 const mapSateToProps = state => {
@@ -50,4 +49,7 @@ const mapSateToProps = state => {
   };
 };
 
-export default connect(mapSateToProps, null)(Landing);
+export default connect(
+  mapSateToProps,
+  null
+)(Landing);

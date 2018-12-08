@@ -23,7 +23,7 @@ class Login extends Component {
     };
     this.props.loginUser(userData, this.props.history);
   };
-  
+
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
@@ -56,7 +56,9 @@ class Login extends Component {
                     } // is-invalid is bootstrap class for validation this.props.errors
                   />
                   {this.props.errors.email && (
-                    <div className='invalid-feedback'>{this.props.errors.email}</div>
+                    <div className='invalid-feedback'>
+                      {this.props.errors.email}
+                    </div>
                   )}
                 </div>
                 <div className='form-group'>
@@ -73,7 +75,9 @@ class Login extends Component {
                     } // is-invalid is bootstrap class for validation this.props.errors
                   />
                   {this.props.errors.password && (
-                    <div className='invalid-feedback'>{this.props.errors.password}</div>
+                    <div className='invalid-feedback'>
+                      {this.props.errors.password}
+                    </div>
                   )}
                 </div>
                 <input type='submit' className='btn btn-info btn-block mt-4' />

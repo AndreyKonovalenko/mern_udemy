@@ -9,6 +9,18 @@ class Dashboard extends Component {
   }
   
   render() {
+    const {user} = this.props.auth;
+    const {profile, loading} = this.props.profile;
+    
+    let dashboardContent;
+    
+    if (profile === null || loading ) {
+      
+    } else {
+      
+    }
+    
+    console.log('user :', user, 'profiel', profile, 'loading', loading);
     return (
       <div>
         <h1>Dashboard</h1>
@@ -16,4 +28,15 @@ class Dashboard extends Component {
     );
   }
 }
-export default connect(null, {getCurrentProfile})(Dashboard);
+
+Dashboard.propsTypes = {
+  getCurrentProfile: PropTypes.func.isRequierd,
+  auth: PropTypes.object.isRequierd,
+  profile: PropTypes.object.isRequierd
+};
+
+const mapSateToProps = state => ({
+  profile: state.profile,
+  auth: state.auth,
+})
+export default connect(mapSateToProps, {getCurrentProfile})(Dashboard);

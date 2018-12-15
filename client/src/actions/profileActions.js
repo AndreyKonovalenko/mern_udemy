@@ -1,17 +1,18 @@
 import axios from '../axios-db';
 //import setAuthToken from '../utils/setAuthToken';
 //import jwt_decode from 'jwt-decode';
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE} from './types';
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from './types';
 
 // Get current profile
 
 export const getCurrentProfile = () => dispatch => {
   dispatch(setProfileLoading());
-  axios.get('/api/profile')
+  axios
+    .get('/api/profile')
     .then(res =>
       dispatch({
         type: GET_PROFILE,
-        payload: res.date
+        payload: res.data
       })
     )
     .catch(err =>
@@ -30,7 +31,7 @@ export const setProfileLoading = () => {
 };
 
 // Clear profile
-export const clearCurrentProfile =() => {
+export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
   };

@@ -17,28 +17,20 @@ const textFieldGroup = ({
     <div className='form-group'>
       <input
         type={type}
-          placeholder={placeholder}
-          disabled={disabled}
-          name={name}
-          value={value}
-          onChange={onChange}
-          className={
-          !error
-          ? formBasicClass
-          : `${formBasicClass} is-invalid`
-          } // is-invalid is bootstrap class for validation this.props.errors
+        placeholder={placeholder}
+        disabled={disabled}
+        name={name}
+        value={value}
+        onChange={onChange}
+        className={!error ? formBasicClass : `${formBasicClass} is-invalid`} // is-invalid is bootstrap class for validation this.props.errors
       />
-      {info && <small className="form-text text-muted">{info}</small>}
-      {error && (
-        <div className='invalid-feedback'>
-          {error}
-        </div>
-      )}
+      {info && <small className='form-text text-muted'>{info}</small>}
+      {error && <div className='invalid-feedback'>{error}</div>}
     </div>
-    );
+  );
 };
 
-textFieldGroup.propTypes ={
+textFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,

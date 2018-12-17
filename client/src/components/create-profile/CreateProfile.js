@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 //import TextFieldGroup from '../common/TextFieldGroup';
-
 
 class CreateProfile extends Component {
   state = {
@@ -21,14 +20,14 @@ class CreateProfile extends Component {
     youtube: '',
     instagram: '',
     errors: {}
-  }
-  
-  render () {
+  };
+
+  render() {
     return (
       <div className='create-profile'>
         <div className='container'>
           <div className='row'>
-            <div className="col-md-8 m-auto">
+            <div className='col-md-8 m-auto'>
               <h1 className='display-4 text-center'>Create Your Profile</h1>
               <p className='lead text-center'>
                 Let's get some information to make your profile stand out
@@ -50,6 +49,6 @@ CreateProfile.propTypes = {
 const mapSateToProps = state => ({
   profile: state.profile,
   errors: state.errors
-}); 
+});
 
 export default connect(mapSateToProps)(CreateProfile);

@@ -25,7 +25,13 @@ class CreateProfile extends Component {
     errors: {}
   };
 
+  onSubmit = event => {
+    event.preventDefault();
+    console.log('submit');
+  };
+
   render() {
+    const { errors } = this.state;
     return (
       <div className='create-profile'>
         <div className='container'>
@@ -36,6 +42,16 @@ class CreateProfile extends Component {
                 Let's get some information to make your profile stand out
               </p>
               <small className='d-block pb-3'>* - required fielsd</small>
+              <form onSubmit={this.onSubmit}>
+                <TextFieldGroup
+                  placeholder='* Profile Handle'
+                  nama={this.state.handle}
+                  onChange={this.onChange}
+                  error={errors.handle}
+                  info='A unique handle for you profile URL. Your full name, company name,
+                  nickname'
+                />
+              </form>
             </div>
           </div>
         </div>

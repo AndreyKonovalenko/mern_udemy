@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
-//import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
+import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
-//import InputGroup from '../common/InputGroup';
+import InputGroup from '../common/InputGroup';
 
 class CreateProfile extends Component {
   state = {
@@ -35,7 +35,57 @@ class CreateProfile extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, displaySocialInputs } = this.state;
+    
+    let socialInputs; 
+    
+    if(displaySocialInputs) {
+      socialInputs = (
+        <div>
+          <InputGroup 
+            placeholder='Twitter profile URL'
+            name='twitter'
+            icon='fab fa-twitter'
+            value={this.state.twitter}
+            onChange={this.onChangeHandler}
+            error={errors.twitter}
+          />
+           <InputGroup 
+            placeholder='Facebook Page URL'
+            name='facebook'
+            icon='fab fa-facebook'
+            value={this.state.facebook}
+            onChange={this.onChangeHandler}
+            error={errors.facebook}
+          />
+          <InputGroup 
+            placeholder='Linkedin Profile URL'
+            name='linkedin'
+            icon='fab fa-linkedin'
+            value={this.state.linkedin}
+            onChange={this.onChangeHandler}
+            error={errors.linkedin}
+          />
+          <InputGroup 
+            placeholder='YouTude Channal URL'
+            name='youtube'
+            icon='fab fa-youtube'
+            value={this.state.youtube}
+            onChange={this.onChangeHandler}
+            error={errors.youtube}
+          />
+          <InputGroup 
+            placeholder='Instagram Page URL'
+            name='instagram'
+            icon='fab fa-instagram'
+            value={this.state.instagram}
+            onChange={this.onChangeHandler}
+            error={errors.instagram}
+          />
+          
+        </div>
+      );
+    } 
     
     // Select options for status
     const options = [
@@ -63,7 +113,7 @@ class CreateProfile extends Component {
                 <TextFieldGroup
                   placeholder='* Profile Handle'
                   value={this.state.handle}
-                  nama={this.state.handle}
+                  name={this.state.handle}
                   onChange={this.onChangeHandler}
                   error={errors.handle}
                   info='A unique handle for you profile URL. Your full name, company name,
@@ -72,7 +122,7 @@ class CreateProfile extends Component {
                 <SelectListGroup
                   placeholder='Status'
                   value={this.state.status}
-                  nama='status'
+                  name='status'
                   onChange={this.onChangeHandler}
                   options={options}
                   error={errors.status}
@@ -102,6 +152,45 @@ class CreateProfile extends Component {
                   error={errors.location}
                   info='City or city & state suggested (eg. Boston, MA)'
                 />
+                <TextFieldGroup
+                  placeholder='* Skills'
+                  name='skills'
+                  value={this.state.skills}
+                  onChange={this.onChangeHandler}
+                  error={errors.skills}
+                  info='Please use comma separated values (eg.
+                  HTML, CSS, JavaScript, PHP)'
+                />
+                <TextFieldGroup
+                  placeholder='Github Username'
+                  name='githubusername'
+                  value={this.state.githubusername}
+                  onChange={this.onChangeHandler}
+                  error={errors.githubusername}
+                  info='If you want your latest repos and a Github link,
+                  include your username'
+                />
+                <TextAreaFieldGroup
+                  placeholder='Short Bio'
+                  name='bio'
+                  value={this.state.bio}
+                  onChange={this.onChangeHandler}
+                  error={errors.bio}
+                  info='Tell us o little about yourself'
+                />
+                
+                <div className='nb-3'>
+                  <button onClick={() => {
+                    this.setState(prevState => ({
+                      displaySocialInputs: !prevState.displaySocialInputs
+                    }))
+                  }} className='btn btn-light'>
+                    Add Social Network Links
+                  </button>
+                  <span className='text-muted'>Optinal</span>
+                </div>
+                {socialInputs}
+                <input type='submit' value='Submit' className='btn btn-info btn-block mt-4' />
               </form>
             </div>
           </div>

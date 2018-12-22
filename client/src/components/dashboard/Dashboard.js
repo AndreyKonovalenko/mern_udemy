@@ -24,6 +24,7 @@ class Dashboard extends Component {
           <div>
             <p className='lead text-muted'>Welcom {user.name} </p>
             <p>You have not yet setup a profile, please add some info</p>
+            <button onClick={() => this.props.getCurrentProfile()}>GET_PROFILE</button>
             <Link to='/create-profile' className='btn-lg btn-info'>
               {' '}
               Create profile

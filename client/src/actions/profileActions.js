@@ -15,12 +15,13 @@ export const getCurrentProfile = () => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(err => {
+      console.log(err);
       dispatch({
         type: GET_PROFILE,
         payload: {}
-      })
-    );
+      });
+    });
 };
 
 // Create Profile
@@ -29,7 +30,7 @@ export const createProfile = (profileData, history) => dispatch => {
   axios
     .post('/api/profile', profileData)
     .then(res => history.push('/dashboard'))
-    .catch(err => 
+    .catch(err =>
       dispatch({
         type: GET_ERRORS,
         payload: err.respons.data

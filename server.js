@@ -14,13 +14,23 @@ const app = express();
 
 const server = http.createServer(app);
 
-// Enable CORS for develompent
+// // Enable CORS for develompent
 
-app.use(cors());
+// app.use(cors());
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// // Enable CORS for develompent
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, PUT'); // I allowed only needed methods
+  //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Autherization');
+  next();
+});
 
 //DB Config
 const db = require('./config/keys').mongoURI;
@@ -41,17 +51,6 @@ app.use(passport.initialize());
 // Passport Config
 
 require('./config/passport')(passport);
-
-// // Enable CORS for develompent
-
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-//   );
-//   next();
-// });
 
 // Use Routes
 app.use('/api/users', users);

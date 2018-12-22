@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
-const cors = require('cors');
 
 // Load Input validaition
 const validateProfileInput = require('../../validation/profile');
@@ -14,9 +13,6 @@ const Profile = require('../../models/Profile');
 
 // Load User Model
 const User = require('../../models/User');
-
-//Enabling CORS Pre-Flight
-router.options('/', cors());
 
 // @router GET api/profile/test
 // @decx   Tests profile route

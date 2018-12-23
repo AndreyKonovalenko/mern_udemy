@@ -6,8 +6,8 @@ const initialState = {
   loading: false
 };
 
-const  reducer = (state = initialState, action) => {
-  switch(action.type) {
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
     case PROFILE_LOADING:
       return {
         ...state,
@@ -16,17 +16,17 @@ const  reducer = (state = initialState, action) => {
     case GET_PROFILE:
       return {
         ...state,
-       profile: action.payload,
-       loading: false
+        profile: action.payload,
+        loading: false
       };
     case CLEAR_CURRENT_PROFILE:
       return {
         ...state,
         profile: null
       };
-    default: 
-        return state;
-    }
+    default:
+      return state;
+  }
 };
 
 export default reducer;

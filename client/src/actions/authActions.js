@@ -59,4 +59,4 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set current user to empty object !!! {} wich will set isAutenticated to false
   dispatch(setCurrentUser({}));
-}
+};

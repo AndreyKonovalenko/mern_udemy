@@ -30,7 +30,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
     .populate('user', ['name'])
     .then(profile => {
       if (!profile) {
-        errors.noprofile = 'There is no profile for thes user';
+        errors.noprofile = 'There is no profile for this user';
         return res.status(404).json(errors);
       }
       res.json(profile);

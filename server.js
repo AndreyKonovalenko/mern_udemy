@@ -26,11 +26,12 @@ app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, PUT'); // I allowed only needed methods
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE'); // I allowed only needed methods
   //res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PATCH, PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Autherization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
+app.use(cors({ credentials: true }));
 
 //DB Config
 const db = require('./config/keys').mongoURI;

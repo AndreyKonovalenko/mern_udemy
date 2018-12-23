@@ -61,6 +61,7 @@ class CreateProfile extends Component {
       socialInputs = (
         <div>
           <InputGroup
+            formBasicClass={formBasicClass}
             placeholder='Twitter profile URL'
             name='twitter'
             icon='fab fa-twitter'
@@ -69,6 +70,7 @@ class CreateProfile extends Component {
             error={this.props.errors.twitter}
           />
           <InputGroup
+            formBasicClass={formBasicClass}
             placeholder='Facebook Page URL'
             name='facebook'
             icon='fab fa-facebook'
@@ -77,6 +79,7 @@ class CreateProfile extends Component {
             error={this.props.errors.facebook}
           />
           <InputGroup
+            formBasicClass={formBasicClass}
             placeholder='Linkedin Profile URL'
             name='linkedin'
             icon='fab fa-linkedin'
@@ -85,6 +88,7 @@ class CreateProfile extends Component {
             error={this.props.errors.linkedin}
           />
           <InputGroup
+            formBasicClass={formBasicClass}
             placeholder='YouTude Channal URL'
             name='youtube'
             icon='fab fa-youtube'
@@ -93,6 +97,7 @@ class CreateProfile extends Component {
             error={this.props.errors.youtube}
           />
           <InputGroup
+            formBasicClass={formBasicClass}
             placeholder='Instagram Page URL'
             name='instagram'
             icon='fab fa-instagram'

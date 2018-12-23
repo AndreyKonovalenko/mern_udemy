@@ -11,6 +11,7 @@ import { createProfile } from '../../actions/profileActions';
 class CreateProfile extends Component {
   state = {
     displaySocialInputs: false,
+    test: false,
     handle: '',
     company: '',
     website: '',
@@ -52,6 +53,7 @@ class CreateProfile extends Component {
 
   render() {
     const { displaySocialInputs } = this.state;
+    const formBasicClass = 'form-control form-control-lg';
 
     let socialInputs;
 
@@ -131,7 +133,8 @@ class CreateProfile extends Component {
                   name='handle'
                   value={this.state.handle}
                   onChange={this.onChangeHandler}
-                  error={this.props.handle}
+                  formBasicClass={formBasicClass}
+                  error={this.props.errors.handle}
                   info='A unique handle for you profile URL. Your full name, company name,
                   nickname'
                 />
@@ -139,6 +142,7 @@ class CreateProfile extends Component {
                   placeholder='Status'
                   value={this.state.status}
                   name='status'
+                  formBasicClass={formBasicClass}
                   onChange={this.onChangeHandler}
                   options={options}
                   error={this.props.errors.status}
@@ -147,6 +151,7 @@ class CreateProfile extends Component {
                 <TextFieldGroup
                   placeholder='Company'
                   name='company'
+                  formBasicClass={formBasicClass}
                   value={this.state.company}
                   onChange={this.onChangeHandler}
                   error={this.props.errors.company}
@@ -155,6 +160,7 @@ class CreateProfile extends Component {
                 <TextFieldGroup
                   placeholder='Website'
                   name='website'
+                  formBasicClass={formBasicClass}
                   value={this.state.website}
                   onChange={this.onChangeHandler}
                   error={this.props.errors.website}
@@ -163,6 +169,7 @@ class CreateProfile extends Component {
                 <TextFieldGroup
                   placeholder='Location'
                   name='location'
+                  formBasicClass={formBasicClass}
                   value={this.state.location}
                   onChange={this.onChangeHandler}
                   error={this.props.errors.location}
@@ -171,6 +178,7 @@ class CreateProfile extends Component {
                 <TextFieldGroup
                   placeholder='* Skills'
                   name='skills'
+                  formBasicClass={formBasicClass}
                   value={this.state.skills}
                   onChange={this.onChangeHandler}
                   error={this.props.errors.skills}
@@ -180,6 +188,7 @@ class CreateProfile extends Component {
                 <TextFieldGroup
                   placeholder='Github Username'
                   name='githubusername'
+                  formBasicClass={formBasicClass}
                   value={this.state.githubusername}
                   onChange={this.onChangeHandler}
                   error={this.props.errors.githubusername}
@@ -189,6 +198,7 @@ class CreateProfile extends Component {
                 <TextAreaFieldGroup
                   placeholder='Short Bio'
                   name='bio'
+                  formBasicClass={formBasicClass}
                   value={this.state.bio}
                   onChange={this.onChangeHandler}
                   error={this.props.errors.bio}

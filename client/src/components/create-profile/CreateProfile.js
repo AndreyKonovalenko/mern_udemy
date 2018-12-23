@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import InputGroup from '../common/InputGroup';
+import { createProfile } from '../../actions/profileActions';
 
 class CreateProfile extends Component {
   state = {
@@ -21,75 +23,88 @@ class CreateProfile extends Component {
     facebook: '',
     linkedin: '',
     youtube: '',
-    instagram: '',
-    errors: {}
+    instagram: ''
   };
 
   onSubmitHandler = event => {
     event.preventDefault();
-    console.log('submit');
+    const profileData = {
+      handle: this.state.handle,
+      company: this.state.company,
+      website: this.state.website,
+      location: this.state.location,
+      status: this.state.status,
+      skills: this.state.skills,
+      githubusername: this.state.githubusername,
+      bio: this.state.bio,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      linkedin: this.state.linkedin,
+      youtube: this.state.youtube,
+      instagram: this.state.instagram
+    };
+    this.props.createProfile(profileData, this.props.history);
   };
-  
+
   onChangeHandler = event => {
-    this.setState({[event.target.name]: event.target.value});
-  }
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
   render() {
-    const { errors, displaySocialInputs } = this.state;
-    
-    let socialInputs; 
-    
-    if(displaySocialInputs) {
+    const { displaySocialInputs } = this.state;
+
+    let socialInputs;
+
+    if (displaySocialInputs) {
       socialInputs = (
         <div>
-          <InputGroup 
+          <InputGroup
             placeholder='Twitter profile URL'
             name='twitter'
             icon='fab fa-twitter'
             value={this.state.twitter}
             onChange={this.onChangeHandler}
-            error={errors.twitter}
+            error={this.props.errors.twitter}
           />
-           <InputGroup 
+          <InputGroup
             placeholder='Facebook Page URL'
             name='facebook'
             icon='fab fa-facebook'
             value={this.state.facebook}
             onChange={this.onChangeHandler}
-            error={errors.facebook}
+            error={this.props.errors.facebook}
           />
-          <InputGroup 
+          <InputGroup
             placeholder='Linkedin Profile URL'
             name='linkedin'
             icon='fab fa-linkedin'
             value={this.state.linkedin}
             onChange={this.onChangeHandler}
-            error={errors.linkedin}
+            error={this.props.errors.linkedin}
           />
-          <InputGroup 
+          <InputGroup
             placeholder='YouTude Channal URL'
             name='youtube'
             icon='fab fa-youtube'
             value={this.state.youtube}
             onChange={this.onChangeHandler}
-            error={errors.youtube}
+            error={this.props.errors.youtube}
           />
-          <InputGroup 
+          <InputGroup
             placeholder='Instagram Page URL'
             name='instagram'
             icon='fab fa-instagram'
             value={this.state.instagram}
             onChange={this.onChangeHandler}
-            error={errors.instagram}
+            error={this.props.errors.instagram}
           />
-          
         </div>
       );
-    } 
-    
+    }
+
     // Select options for status
     const options = [
-      { label: '* Select Professipnal Status ', value: 0},
+      { label: '* Select Professipnal Status ', value: 0 },
       { label: 'Developer', value: 'Developer' },
       { label: 'Junior Developer', value: 'Junior Developer' },
       { label: 'Senior Developer', value: 'Senior Developer' },
@@ -97,8 +112,9 @@ class CreateProfile extends Component {
       { label: 'Student or Learning', value: 'Student or Learning' },
       { label: 'Insctuctor or Teacher', value: 'Insctuctor or Teacher' },
       { label: 'Intern', value: 'Intern' },
-      { label: 'Other', value: 'Othen'}
+      { label: 'Other', value: 'Othen' }
     ];
+    console.log(this.props.errors.handle);
     return (
       <div className='create-profile'>
         <div className='container'>
@@ -112,10 +128,10 @@ class CreateProfile extends Component {
               <form onSubmit={this.onSubmitHandler}>
                 <TextFieldGroup
                   placeholder='* Profile Handle'
+                  name='handle'
                   value={this.state.handle}
-                  name={this.state.handle}
                   onChange={this.onChangeHandler}
-                  error={errors.handle}
+                  error={this.props.handle}
                   info='A unique handle for you profile URL. Your full name, company name,
                   nickname'
                 />
@@ -125,7 +141,7 @@ class CreateProfile extends Component {
                   name='status'
                   onChange={this.onChangeHandler}
                   options={options}
-                  error={errors.status}
+                  error={this.props.errors.status}
                   info='Give us an idea where you are at in your career'
                 />
                 <TextFieldGroup
@@ -133,7 +149,7 @@ class CreateProfile extends Component {
                   name='company'
                   value={this.state.company}
                   onChange={this.onChangeHandler}
-                  error={errors.company}
+                  error={this.props.errors.company}
                   info='Gould be your own company or one you work for'
                 />
                 <TextFieldGroup
@@ -141,7 +157,7 @@ class CreateProfile extends Component {
                   name='website'
                   value={this.state.website}
                   onChange={this.onChangeHandler}
-                  error={errors.website}
+                  error={this.props.errors.website}
                   info='Could be your own website or a company one'
                 />
                 <TextFieldGroup
@@ -149,7 +165,7 @@ class CreateProfile extends Component {
                   name='location'
                   value={this.state.location}
                   onChange={this.onChangeHandler}
-                  error={errors.location}
+                  error={this.props.errors.location}
                   info='City or city & state suggested (eg. Boston, MA)'
                 />
                 <TextFieldGroup
@@ -157,7 +173,7 @@ class CreateProfile extends Component {
                   name='skills'
                   value={this.state.skills}
                   onChange={this.onChangeHandler}
-                  error={errors.skills}
+                  error={this.props.errors.skills}
                   info='Please use comma separated values (eg.
                   HTML, CSS, JavaScript, PHP)'
                 />
@@ -166,7 +182,7 @@ class CreateProfile extends Component {
                   name='githubusername'
                   value={this.state.githubusername}
                   onChange={this.onChangeHandler}
-                  error={errors.githubusername}
+                  error={this.props.errors.githubusername}
                   info='If you want your latest repos and a Github link,
                   include your username'
                 />
@@ -175,16 +191,19 @@ class CreateProfile extends Component {
                   name='bio'
                   value={this.state.bio}
                   onChange={this.onChangeHandler}
-                  error={errors.bio}
+                  error={this.props.errors.bio}
                   info='Tell us o little about yourself'
                 />
-                
+
                 <div className='nb-3'>
-                  <button onClick={() => {
-                    this.setState(prevState => ({
-                      displaySocialInputs: !prevState.displaySocialInputs
-                    }))
-                  }} className='btn btn-light'>
+                  <button
+                    onClick={() => {
+                      this.setState(prevState => ({
+                        displaySocialInputs: !prevState.displaySocialInputs
+                      }));
+                    }}
+                    className='btn btn-light'
+                  >
                     Add Social Network Links
                   </button>
                   <span className='text-muted'>Optinal</span>
@@ -201,13 +220,16 @@ class CreateProfile extends Component {
 }
 
 CreateProfile.propTypes = {
-  profile: PropTypes.object.isRequierd,
-  errors: PropTypes.object.isRequierd
+  errors: PropTypes.object.isRequired
 };
 
-const mapSateToProps = state => ({
-  profile: state.profile,
-  errors: state.errors
-});
+const mapSateToProps = state => {
+  return {
+    errors: state.errors
+  };
+};
 
-export default connect(mapSateToProps)(CreateProfile);
+export default connect(
+  mapSateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));

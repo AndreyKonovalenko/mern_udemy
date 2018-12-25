@@ -212,6 +212,7 @@ class CreateProfile extends Component {
 
                 <div className='nb-3'>
                   <button
+                    type='button'
                     onClick={() => {
                       this.setState(prevState => ({
                         displaySocialInputs: !prevState.displaySocialInputs

@@ -42,11 +42,9 @@ class Register extends Component {
           <div className='row'>
             <div className='col-md-8 m-auto'>
               <h1 className='display-4 text-center'>Sign Up</h1>
-              <p className='lead text-center'>
-                Create your DevConnector account
-              </p>
+              <p className='lead text-center'>Create your DevConnector account</p>
               <form onSubmit={this.onSubmitHundler}>
-                <TextFieldGroup 
+                <TextFieldGroup
                   placeholder='Name'
                   name='name'
                   formBasicClass={formBasicClass}
@@ -54,7 +52,7 @@ class Register extends Component {
                   onChange={this.onChangeHandler}
                   error={this.props.errors.name}
                 />
-                <TextFieldGroup 
+                <TextFieldGroup
                   placeholder='Email Address'
                   name='email'
                   formBasicClass={formBasicClass}
@@ -64,7 +62,7 @@ class Register extends Component {
                   error={this.props.errors.email}
                   info=' This site uses Gravatar so if you want a profile image, use a Gravatar email'
                 />
-                <TextFieldGroup 
+                <TextFieldGroup
                   placeholder='Password'
                   name='password'
                   formBasicClass={formBasicClass}
@@ -73,9 +71,9 @@ class Register extends Component {
                   type='password'
                   error={this.props.errors.password}
                 />
-                <TextFieldGroup 
+                <TextFieldGroup
                   placeholder='Confirm Password'
-                  name='password'
+                  name='password2'
                   formBasicClass={formBasicClass}
                   value={this.state.password2}
                   onChange={this.onChangeHandler}

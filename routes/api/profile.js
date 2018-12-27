@@ -3,6 +3,12 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+// Optional. Use this if you create a lot of connections and don't want
+// to copy/paste `{ useNewUrlParser: true }`.
+
+mongoose.set('useFindAndModify', false);
+
+
 // Load Input validaition
 const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');

@@ -8,12 +8,12 @@ import ProfileActions from './ProfileActions.js';
 
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.getCurrentProfile();
+    this.props.onGetCurrentProfile();
   }
 
   onDeleteClickHandle = event => {
-    event.preventDefault();
-    this.props.deleteAccount();
+//    event.preventDefault();
+    this.props.onDeleteAccount();
   };
 
   render() {
@@ -75,7 +75,13 @@ const mapSateToProps = state => ({
   auth: state.auth
 });
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onGetCurrentProfile: () => dispatch(getCurrentProfile()),
+    onDeleteAccount: () => dispatch(deleteAccount())
+  }
+}
+
 export default connect(
-  mapSateToProps,
-  { getCurrentProfile, deleteAccount }
+  mapSateToProps, mapDispatchToProps
 )(Dashboard);

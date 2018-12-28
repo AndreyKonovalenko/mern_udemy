@@ -121,7 +121,6 @@ class CreateProfile extends Component {
       { label: 'Intern', value: 'Intern' },
       { label: 'Other', value: 'Othen' }
     ];
-    console.log(this.props.errors.handle);
     return (
       <div className='create-profile'>
         <div className='container'>

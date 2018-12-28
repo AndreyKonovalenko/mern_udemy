@@ -57,14 +57,14 @@ export const createProfile = (profileData, history) => dispatch => {
 export const deleteAccount = () => dispatch => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     axios.delete('/api/profile')
-    .then(res =>
-      dispatch(deleteAccountActionCreater())
+    .then(res => {
+      dispatch(deleteAccountActionCreater());
+    })
     .catch(err =>
         dispatch({
           type: GET_ERRORS,
           payload: err.response.data
         })
-      )
     );
   }
 };

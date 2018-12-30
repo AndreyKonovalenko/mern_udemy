@@ -8,7 +8,6 @@ const passport = require('passport');
 
 mongoose.set('useFindAndModify', false);
 
-
 // Load Input validaition
 const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');
@@ -116,7 +115,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   if (req.body.company) profileFields.company = req.body.company;
   if (req.body.website) profileFields.website = req.body.website;
   if (req.body.bio) profileFields.bio = req.body.bio;
-  if (req.body.ststus) profileFields.ststus = req.body.ststus;
+  if (req.body.status) profileFields.status = req.body.status;
   if (req.body.githubusername) profileFields.githubusername = req.body.githubusername;
   // Skills - Split into array
   if (typeof req.body.skills !== 'undefined') {

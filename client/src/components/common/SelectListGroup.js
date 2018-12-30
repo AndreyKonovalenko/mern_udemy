@@ -1,21 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const selectListGroup = ({
-  name,
-  value,
-  error,
-  info,
-  onChange,
-  options,
-  formBasicClass
-}) => {
-  const selectOptions = options.map(option => (
-    <option key={option.label} value={option.value}>
-      {option.label}
-    </option>
-  ));
-  
+const selectListGroup = ({ name, value, error, info, onChange, options, formBasicClass }) => {
+  const selectOptions = options.map(option => {
+    return (
+      <option key={option.label} value={option.value}>
+        {option.label}
+      </option>
+    );
+  });
+
   return (
     <div className='form-group'>
       <select
@@ -40,6 +34,5 @@ selectListGroup.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired
 };
-
 
 export default selectListGroup;

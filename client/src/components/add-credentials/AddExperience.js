@@ -75,7 +75,7 @@ class AddExperience extends Component {
                 />
                 <TextFieldGroup
                   formBasicClass={formBasicClass}
-                  placeholder='* Location'
+                  placeholder='Location'
                   name='location'
                   value={this.state.location}
                   onChange={this.onChangeHandler}

@@ -12,7 +12,7 @@ class Dashboard extends Component {
   }
 
   onDeleteClickHandle = event => {
-//    event.preventDefault();
+    //    event.preventDefault();
     this.props.onDeleteAccount();
   };
 
@@ -33,7 +33,10 @@ class Dashboard extends Component {
             <ProfileActions />
             {/* TODO: exp and edu  */}
             <div style={{ marginBottom: '60px' }} />
-            <button onClick={this.onDeleteClickHandle} className='btn btn-danger'>
+            <button
+              onClick={this.onDeleteClickHandle}
+              className='btn btn-danger'
+            >
               Delete My Account
             </button>
           </div>
@@ -79,9 +82,10 @@ const mapDispatchToProps = dispatch => {
   return {
     onGetCurrentProfile: () => dispatch(getCurrentProfile()),
     onDeleteAccount: () => dispatch(deleteAccount())
-  }
-}
+  };
+};
 
 export default connect(
-  mapSateToProps, mapDispatchToProps
+  mapSateToProps,
+  mapDispatchToProps
 )(Dashboard);

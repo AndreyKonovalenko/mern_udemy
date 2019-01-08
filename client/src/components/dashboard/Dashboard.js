@@ -14,7 +14,7 @@ class Dashboard extends Component {
   }
 
   onDeleteClickHandle = event => {
-    //    event.preventDefault();
+    // event.preventDefault();
     this.props.onDeleteAccount();
   };
 

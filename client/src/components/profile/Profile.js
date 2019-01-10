@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
 import ProfileCreds from './ProfileCreds';
 import ProfileGitHub from './ProfileGitHub';
-//import Spinner from '../common/Spinner';
+import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../actions/profileActions';
 
 class Profile extends Component {
@@ -15,18 +15,41 @@ class Profile extends Component {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
     }
-    console.log(typeof this.props.match.params.handle);
   }
   render() {
-    const { profile } = this.props.profile;
-    console.log(profile);
+    const { profile, loading } = this.props.profile;
+    let profileContent;
+    
+    if(profile === null || loading) {
+      profileContent = <Spinner />;
+    } else {
+      profileContent = (
+        <div>
+          <div className='row'>
+            <div className='col-md-6'>
+              <Link to='/profiles' className="btn btn-light md-3 float-left">
+                Back To Profiles
+              </Link>
+            </div>
+            <div className='col-md-6'/>
+          </div>
+          <ProfileHeader profile={profile}/>
+          <ProfileAbout />
+          <ProfileCreds />
+          <ProfileGitHub />
+        </div>
+      );
+    }
+    
     return (
-      <div>
-        <ProfileHeader />
-        {profile ? <h1>{profile.user.name}</h1> : null}
-        <ProfileAbout />
-        <ProfileCreds />
-        <ProfileGitHub />
+      <div className='profile'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-12'>
+              {profileContent}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

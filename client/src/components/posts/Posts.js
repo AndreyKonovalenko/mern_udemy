@@ -16,6 +16,7 @@ class Posts extends Component {
   
   render() {
     const {posts, loading}= this.props.post;
+    console.log(posts);
     let postContent;
     
     if(posts === null || loading) {
@@ -29,7 +30,7 @@ class Posts extends Component {
         <div className='container'>
           <div className='col-md-12'>
             <PostForm />
-            <postContent />
+            {postContent}
           </div>
         </div>
       </div>

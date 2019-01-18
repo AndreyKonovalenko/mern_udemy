@@ -4,6 +4,7 @@ import {
   ADD_POST,
   GET_ERRORS, 
   GET_POSTS,
+  GET_POST,
   POST_LOADING, 
   DELETE_POST 
   
@@ -41,6 +42,25 @@ export const getPosts = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_POSTS, // we don't call GET_ERRORS because there is no form validation where we need specific errors
+        payload: null
+      })
+    );
+};
+
+// Get Post
+export const getPost = (id) => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get(`api/posts/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_POST, // we don't call GET_ERRORS because there is no form validation where we need specific errors
         payload: null
       })
     );
@@ -102,3 +122,4 @@ export const setPostLoading = () => {
     type: POST_LOADING
   }
 }
+

@@ -1,13 +1,12 @@
 import axios from '../axios-db';
 
-import { 
+import {
   ADD_POST,
-  GET_ERRORS, 
+  GET_ERRORS,
   GET_POSTS,
   GET_POST,
-  POST_LOADING, 
-  DELETE_POST 
-  
+  POST_LOADING,
+  DELETE_POST
 } from './types';
 
 // Add Post
@@ -48,7 +47,7 @@ export const getPosts = () => dispatch => {
 };
 
 // Get Post
-export const getPost = (id) => dispatch => {
+export const getPost = id => dispatch => {
   dispatch(setPostLoading());
   axios
     .get(`api/posts/${id}`)
@@ -66,8 +65,8 @@ export const getPost = (id) => dispatch => {
     );
 };
 
-// Delete Post 
-export const deletePost = (id) => dispatch => {
+// Delete Post
+export const deletePost = id => dispatch => {
   axios
     .delete(`api/posts/${id}`)
     .then(res =>
@@ -78,7 +77,7 @@ export const deletePost = (id) => dispatch => {
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS, 
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
@@ -86,15 +85,13 @@ export const deletePost = (id) => dispatch => {
 
 // Add Like
 
-export const addLike = (id) => dispatch => {
+export const addLike = id => dispatch => {
   axios
     .post(`api/posts/like/${id}`)
-    .then(res =>
-      dispatch(res => dispatch(getPosts()))
-    )
+    .then(res => dispatch(res => dispatch(getPosts())))
     .catch(err =>
       dispatch({
-        type: GET_ERRORS, 
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
@@ -102,15 +99,31 @@ export const addLike = (id) => dispatch => {
 
 // Remove Like
 
-export const removeLike = (id) => dispatch => {
+export const removeLike = id => dispatch => {
   axios
     .post(`api/posts/unlike/${id}`)
+    .then(res => dispatch(res => dispatch(getPosts())))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+// Add Comment
+export const addComment = (postId, commentData) => dispatch => {
+  axios
+    .post(`api/posts/comment/${postId}`, commentData)
     .then(res =>
-      dispatch(res => dispatch(getPosts()))
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      })
     )
     .catch(err =>
       dispatch({
-        type: GET_ERRORS, 
+        type: GET_ERRORS,
         payload: err.response.data
       })
     );
@@ -120,6 +133,5 @@ export const removeLike = (id) => dispatch => {
 export const setPostLoading = () => {
   return {
     type: POST_LOADING
-  }
-}
-
+  };
+};

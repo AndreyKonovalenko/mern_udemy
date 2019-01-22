@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const http = require('http');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const path = require('path');
 
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
@@ -60,10 +61,23 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 
+// Server static assets if in production
+
+if(process.env.NODE_ENV === 'production') {
+  //Set statuc folder
+  app.use(express.static('client/build'));
+  
+  app.get('*', (req, res)=> {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 let port = process.env.PORT || 5000;
 if (port === '8080') {
   port = 8081;
 }
+
+
 const ip = process.env.IP || '0.0.0.0';
 
 server.listen(port, ip, () => {

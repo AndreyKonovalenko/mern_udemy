@@ -10,14 +10,8 @@ const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 
-const app = express();
 // using express as a router provider
-
-//const server = http.createServer(app);
-
-// // Enable CORS for develompent
-
-// app.use(cors());
+const app = express();
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,8 +40,6 @@ mongoose
   .then(() => console.log('MongoDB Connected !'))
   .catch(err => console.log(err));
 
-
-
 // Passport middleware
 
 app.use(passport.initialize());
@@ -72,16 +64,11 @@ if(process.env.NODE_ENV === 'production') {
   });
 }
 
+// Settings for correct development on local machine and on ide.c9, remember that webpack web server runs on port 3000 
+
 let port = process.env.PORT || 5000;
 if (port === '8080') {
   port = 8081;
 }
-
-// const ip = process.env.IP || '0.0.0.0';
-
-// server.listen(port, ip, () => {
-//   const addr = server.address();
-//   console.log(`Server running on ${addr.address}:${port}`);
-// });
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
 const http = require('http');
 const bodyParser = require('body-parser');
@@ -26,7 +25,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
-app.use(cors({ credentials: true }));
 
 //DB Config
 const db = require('./config/keys').mongoURI;

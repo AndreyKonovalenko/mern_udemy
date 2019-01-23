@@ -13,7 +13,7 @@ const posts = require('./routes/api/posts');
 const app = express();
 // using express as a router provider
 
-const server = http.createServer(app);
+//const server = http.createServer(app);
 
 // // Enable CORS for develompent
 
@@ -77,12 +77,11 @@ if (port === '8080') {
   port = 8081;
 }
 
+// const ip = process.env.IP || '0.0.0.0';
 
-const ip = process.env.IP || '0.0.0.0';
+// server.listen(port, ip, () => {
+//   const addr = server.address();
+//   console.log(`Server running on ${addr.address}:${port}`);
+// });
 
-server.listen(port, ip, () => {
-  const addr = server.address();
-  console.log(`Server running on ${addr.address}:${port}`);
-});
-
-
+app.listen(port, () => console.log(`Server running on port ${port}`));
